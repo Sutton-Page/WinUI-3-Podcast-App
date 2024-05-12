@@ -26,12 +26,12 @@ namespace NativeLearning
     public sealed partial class MainWindow : Window
     {
         private bool _clicked;
-        public PodcastViewModel ViewModel {get; set; }
+        //public PodcastViewModel ViewModel {get; set; }
         
         public MainWindow()
         {
             this.InitializeComponent();
-            this.ViewModel = new PodcastViewModel();
+            //this.ViewModel = new PodcastViewModel();
             
         }
 

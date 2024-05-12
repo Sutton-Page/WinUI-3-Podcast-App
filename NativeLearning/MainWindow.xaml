@@ -11,53 +11,24 @@
     >
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <NavigationView x:Name="NavView"
+                     Loaded="NavView_Loaded"
+                     ItemInvoked="NavView_ItemInvoked"
+                     BackRequested="NavView_BackRequested">
+            <NavigationView.MenuItems>
 
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-           
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,10">
-            <TextBlock Margin="5" Text="Podcast App" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-
-            <StackPanel Orientation="Horizontal">
-                <Button Margin="5"> Add Podcast</Button>
-                <Button> Settings </Button>
-            </StackPanel>
-            
-        </StackPanel>
+                <NavigationViewItem Tag="NativeLearning.Home" Icon="Home" Content="Home"/>
 
 
-        <GridView  Grid.Row="1" ItemsSource="{x:Bind ViewModel.Podcasts}"
-            HorizontalAlignment="Center" VerticalAlignment="Center">
+            </NavigationView.MenuItems>
 
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Podcast">
-                        <StackPanel Orientation="Horizontal" Margin="4">
-                            <StackPanel>
-
-                                <Image Source="{x:Bind url}" Width="200" Height="200"/>
-                                <TextBlock Text="{x:Bind name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
-                             FontSize="20"/>
-
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
+        </NavigationView>
 
 
 
-            </GridView>
-        
+
     </Grid>
-
-
-
-
-
 
 
 
