@@ -10,17 +10,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,20,0,20">
 
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+        
 
-        </Grid.RowDefinitions>
-
-        <GridView  Grid.Row="1" ItemsSource="{x:Bind ViewModel.Podcasts}"
-        HorizontalAlignment="Center" VerticalAlignment="Center">
+        <GridView ItemsSource="{x:Bind ViewModel.Podcasts}"
+        HorizontalAlignment="Center">
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:Podcast">

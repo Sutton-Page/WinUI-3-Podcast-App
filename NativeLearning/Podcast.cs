@@ -47,7 +47,14 @@ namespace NativeLearning
             this.podcasts.Add(new Podcast("Darknet diaries", this.testUrl));
             this.podcasts.Add(new Podcast("Political Gabfest", this.test2));
 
-            
+
+            this.podcasts.Add(new Podcast("Darknet diaries", this.testUrl));
+            this.podcasts.Add(new Podcast("Political Gabfest", this.test2));
+
+            this.podcasts.Add(new Podcast("Darknet diaries", this.testUrl));
+            this.podcasts.Add(new Podcast("Political Gabfest", this.test2));
+
+
 
 
 

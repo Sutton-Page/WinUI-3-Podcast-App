@@ -14,7 +14,8 @@
     <Grid>
         <NavigationView x:Name="NavView"
                      Loaded="NavView_Loaded"
-                     BackRequested="NavView_BackRequested">
+                     BackRequested="NavView_BackRequested"
+                     ItemInvoked="NavView_ItemInvoked">
 
 
             <NavigationView.MenuItems>

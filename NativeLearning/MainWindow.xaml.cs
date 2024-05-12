@@ -56,6 +56,21 @@ namespace NativeLearning
                 Tag = "NavigationViewDemo.MyContentPage"
             });*/
 
+
+            NavView.MenuItems.Add(new NavigationViewItem
+            {
+                Content = "Political Gabfest",
+                Tag = "NativeLearning.Content"
+
+            });
+
+            NavView.MenuItems.Add(new NavigationViewItem
+            {
+                Content = "Darknet Diaries",
+                Tag = "NativeLearning.Content"
+
+            });
+
             // Add handler for ContentFrame navigation.
             ContentFrame.Navigated += On_Navigated;
 
@@ -64,7 +79,13 @@ namespace NativeLearning
             // If navigation occurs on SelectionChanged, this isn't needed.
             // Because we use ItemInvoked to navigate, we need to call Navigate
             // here to load the home page.
-            NavView_Navigate(typeof(Home), new EntranceNavigationTransitionInfo());
+
+            // passing home for default route
+
+
+            //NavView_Navigate(typeof(Home), new EntranceNavigationTransitionInfo(),"Home");
+
+            ContentFrame.Navigate(typeof(Home), null, new EntranceNavigationTransitionInfo());
         }
 
         private void NavView_Navigate(
@@ -75,11 +96,18 @@ namespace NativeLearning
             // entries in the backstack.
             Type preNavPageType = ContentFrame.CurrentSourcePageType;
 
+            String previousPodcast = ContentFrame.Content.ToString();
+
+
+
             // Only navigate if the selected page isn't currently loaded.
             if (navPageType is not null && !Type.Equals(preNavPageType, navPageType))
             {
                 ContentFrame.Navigate(navPageType, null, transitionInfo);
             }
+            
+
+            
         }
 
         private void On_Navigated(object sender, NavigationEventArgs e)
@@ -116,6 +144,30 @@ namespace NativeLearning
             }*/
         }
 
+        private void NavView_ItemInvoked(NavigationView sender,
+                                 NavigationViewItemInvokedEventArgs args)
+        {
+
+            if (args.InvokedItemContainer != null)
+            {
+                Type navPageType = Type.GetType(args.InvokedItemContainer.Tag.ToString());
+
+                
+                NavView_Navigate(navPageType, args.RecommendedNavigationTransitionInfo);
+            }
+
+            /*
+            if (args.IsSettingsInvoked == true)
+            {
+                NavView_Navigate(typeof(SettingsPage), args.RecommendedNavigationTransitionInfo);
+            }
+            else if (args.InvokedItemContainer != null)
+            {
+                Type navPageType = Type.GetType(args.InvokedItemContainer.Tag.ToString());
+                NavView_Navigate(navPageType, args.RecommendedNavigationTransitionInfo);
+            }*/
+        }
+
         private void NavView_BackRequested(NavigationView sender,
                                    NavigationViewBackRequestedEventArgs args)
         {
@@ -136,5 +188,7 @@ namespace NativeLearning
             ContentFrame.GoBack();
             return true;
         }
+
+        
     }
 }
