@@ -19,12 +19,6 @@
 
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,5">
-            <TextBlock Margin="5" Text="Podcast App" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-
-        </StackPanel>
-
-
         <GridView  Grid.Row="1" ItemsSource="{x:Bind ViewModel.Podcasts}"
         HorizontalAlignment="Center" VerticalAlignment="Center">
 
