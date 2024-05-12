@@ -57,19 +57,7 @@ namespace NativeLearning
             });*/
 
 
-            NavView.MenuItems.Add(new NavigationViewItem
-            {
-                Content = "Political Gabfest",
-                Tag = "NativeLearning.Content"
-
-            });
-
-            NavView.MenuItems.Add(new NavigationViewItem
-            {
-                Content = "Darknet Diaries",
-                Tag = "NativeLearning.Content"
-
-            });
+            
 
             // Add handler for ContentFrame navigation.
             ContentFrame.Navigated += On_Navigated;

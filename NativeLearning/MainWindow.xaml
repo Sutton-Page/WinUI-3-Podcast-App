@@ -19,13 +19,12 @@
 
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Tag="NativeLearning.Home" Icon="Home" Content="Home"/>
+                <NavigationViewItem Tag="NativeLearning.Home" Icon="Home" Content="Podcasts"/>
+                <NavigationViewItem  Icon="Add" Content="Add Podcast" Tag="NativeLearning.Add"/>
+                
             </NavigationView.MenuItems>
 
-            <NavigationView.FooterMenuItems>
-                <NavigationViewItem Icon="Add" Content="Add Podcast"/>
-                <NavigationViewItem Icon="Edit" Content="Edit Podcasts"/>
-            </NavigationView.FooterMenuItems>
+            
 
             <ScrollViewer>
                 <Frame x:Name="ContentFrame" IsTabStop="True"
