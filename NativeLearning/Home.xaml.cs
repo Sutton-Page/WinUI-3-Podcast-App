@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Enumeration;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -24,11 +25,24 @@ namespace NativeLearning
     public sealed partial class Home : Page
     {
         public PodcastViewModel ViewModel { get; set; }
+
+        private void toContent(object sender, RoutedEventArgs e)
+        {
+
+            //Frame.Navigate(typeof(Content));
+
+            
+        }
         public Home()
         {
             this.InitializeComponent();
             this.ViewModel = new PodcastViewModel();
             
-    }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

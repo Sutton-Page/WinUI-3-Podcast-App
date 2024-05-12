@@ -23,9 +23,13 @@
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <StackPanel>
 
-                            <Image Source="{x:Bind url}" Width="200" Height="200"/>
+                            <Button Click="toContent">
+                                <Image Source="{x:Bind url}" Width="200" Height="200" />
+                            </Button>
+
                             <TextBlock Text="{x:Bind name}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
                          FontSize="20"/>
+                           
 
                         </StackPanel>
                     </StackPanel>
