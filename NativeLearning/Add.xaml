@@ -9,9 +9,21 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Margin="10">
 
-        <TextBlock Text="Hello World"/>
+        <StackPanel HorizontalAlignment="Center">
+            <StackPanel Margin="10">
+               
+                <TextBox Width="500" Header="Podcast Name"></TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="10">
+                
+                <TextBox Width="500" Header="Rss Feed Url"></TextBox>
+            </StackPanel>
+
+            <Button HorizontalAlignment="Center" Margin="5" FontSize="20"> Submit </Button>
+        </StackPanel>
 
     </Grid>
 </Page>
