@@ -28,17 +28,16 @@
             </Grid.ColumnDefinitions>
 
 
-            <StackPanel VerticalAlignment="Center" Grid.Column="0" Margin="10">
-                <Image Height="200" Source="{x:Bind podcastData.url}" Margin="5"  Grid.Row="0" Stretch="Uniform"/>
+            <StackPanel VerticalAlignment="Center" Grid.Column="0" Margin="40,20,0,20">
+                <Image Height="250" Source="{x:Bind podcastData.url}" Margin="5"  Grid.Row="0" Stretch="Uniform"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1"  Margin="10,20,0,10" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 
               <TextBlock Text="{x:Bind podcastData.name}" Margin="5" FontSize="40"/>
-                <TextBlock FontSize="20" x:Name="desc">
-                    
-                </TextBlock>
+                <TextBlock FontSize="20" x:Name="desc"/>
+                <Button Grid.Row="1" Click="Button_Click" Margin="10">Go Back</Button>
 
             </StackPanel>
             
@@ -46,7 +45,7 @@
 
         </Grid>
 
-        <Button Grid.Row="1" Click="Button_Click"> Go Back</Button>
+        
 
         
 
