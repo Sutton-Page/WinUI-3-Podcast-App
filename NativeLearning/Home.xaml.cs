@@ -23,9 +23,13 @@ namespace NativeLearning
     /// </summary>
     public sealed partial class Home : Page
     {
+
+        public PodcastViewModel ViewModel { get; set; }
+
         public Home()
         {
             this.InitializeComponent();
+            this.ViewModel = new PodcastViewModel();
         }
     }
 }
