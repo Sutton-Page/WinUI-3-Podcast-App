@@ -31,12 +31,21 @@ namespace NativeLearning
         {
             this.InitializeComponent();
             this.ViewModel = new PodcastViewModel();
+
+            
         }
 
+        
 
-        private void toPodcast(object sender, RoutedEventArgs e)
+        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(Content));
+            if(podContent.SelectedIndex != -1)
+            {
+                Podcast pod = ViewModel.Podcasts[podContent.SelectedIndex];
+
+                String title = pod.name;
+                Frame.Navigate(typeof(Content),pod);
+            }
         }
     }
 }

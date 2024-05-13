@@ -11,5 +11,13 @@
 
     <Grid>
 
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{x:Bind podcastData.name}"/>
+            <Image Width="200" Height="200" Source="{x:Bind podcastData.url}"/>
+
+            <Button Click="Button_Click"> Back</Button>
+            
+        </StackPanel>
+
     </Grid>
 </Page>

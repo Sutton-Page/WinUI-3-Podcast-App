@@ -23,9 +23,27 @@ namespace NativeLearning
     /// </summary>
     public sealed partial class Content : Page
     {
+        Podcast podcastData;
         public Content()
         {
             this.InitializeComponent();
+
+        }
+
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if(e.Parameter is  Podcast)
+            {
+                podcastData = e.Parameter as Podcast;
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Home));
         }
     }
 }
