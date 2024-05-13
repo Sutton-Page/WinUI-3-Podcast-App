@@ -28,7 +28,11 @@ namespace NativeLearning
         {
             this.InitializeComponent();
 
+            
+
         }
+
+        String lg = "Explore true stories of the dark side of the Internet with host Jack Rhysider \n as he takes you on a journey through the chilling world of hacking, \n data breaches, and cyber crime.";
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -37,6 +41,8 @@ namespace NativeLearning
             {
                 podcastData = e.Parameter as Podcast;
             }
+
+            desc.Text = lg;
 
             base.OnNavigatedTo(e);
         }
