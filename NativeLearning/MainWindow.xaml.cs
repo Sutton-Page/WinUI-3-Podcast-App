@@ -32,10 +32,27 @@ namespace NativeLearning
         {
             this.InitializeComponent();
             this.ViewModel = new PodcastViewModel();
+
+            setupApp();
+
+
             
         }
 
-       
+        private void setupApp()
+        {
+
+            nav.Navigate(typeof(Home));
+        }
+
+        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        
+
+
         /*
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
