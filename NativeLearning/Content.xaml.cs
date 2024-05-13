@@ -12,7 +12,6 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.Devices.Enumeration;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,21 +21,11 @@ namespace NativeLearning
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Home : Page
+    public sealed partial class Content : Page
     {
-
-        public PodcastViewModel ViewModel { get; set; }
-
-        public Home()
+        public Content()
         {
             this.InitializeComponent();
-            this.ViewModel = new PodcastViewModel();
-        }
-
-
-        private void toPodcast(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(Content));
         }
     }
 }
