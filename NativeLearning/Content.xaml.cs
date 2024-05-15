@@ -17,6 +17,7 @@ using System.Xml.Linq;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text.RegularExpressions;
+using Windows.Media.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,6 +31,8 @@ namespace NativeLearning
     {
         Podcast podcastData;
 
+        int mediaPlayingIndex = -1;
+
         private ObservableCollection<PodcastItem> podItems;
 
 
@@ -38,6 +41,8 @@ namespace NativeLearning
             this.InitializeComponent();
 
             podItems = new ObservableCollection<PodcastItem>();
+
+            podView.SelectedIndex = 0;
 
             
 
@@ -63,6 +68,9 @@ namespace NativeLearning
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            mediaPlayer.Source = null;
+            mediaPlayingIndex = -1;
+
             Frame.Navigate(typeof(Home));
         }
 
@@ -164,6 +172,29 @@ namespace NativeLearning
             {
 
                 this.pullFeed(podcastData.feedUrl);
+            }
+        }
+
+        private async void playAudio(object sender, RoutedEventArgs e)
+        {
+            if (podView.SelectedIndex != -1)
+            {
+
+                if (mediaPlayingIndex != podView.SelectedIndex)
+                {
+
+                    
+                    mediaPlayer.Source = null;
+
+                    
+
+                    PodcastItem pod = podItems[podView.SelectedIndex];
+                    mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(pod.url));
+
+                    mediaPlayingIndex = podView.SelectedIndex;
+
+                }
+
             }
         }
     }
