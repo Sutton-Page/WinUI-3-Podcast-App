@@ -47,5 +47,10 @@ namespace NativeLearning
                 Frame.Navigate(typeof(Content),pod);
             }
         }
+
+        private void toAdd(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Add));
+        }
     }
 }
