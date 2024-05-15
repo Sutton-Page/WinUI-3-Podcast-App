@@ -112,6 +112,7 @@ namespace NativeLearning
                 {
 
                     String cleanedDescription = this.cleanUpDescription(item.Description, 45);
+                     String cleanedTitle = this.cleanUpDescription(item.Title, 50);
 
                     String checkNull = item.episodeImageUrl;
 
@@ -123,7 +124,7 @@ namespace NativeLearning
                     }
 
 
-                    PodcastItem temp = new PodcastItem(item.Title, cleanedDescription, item.url,checkNull);
+                    PodcastItem temp = new PodcastItem(cleanedTitle, cleanedDescription, item.url,checkNull);
 
                     podItems.Add(temp);
                 }
@@ -142,10 +143,12 @@ namespace NativeLearning
 
             description=  Regex.Replace(description, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
 
-            if (description.Length > 200)
+            int maxLength = 300;
+
+            if (description.Length > maxLength)
             {
 
-                description = description.Substring(0, 200);
+                description = description.Substring(0, maxLength);
             }
 
 
