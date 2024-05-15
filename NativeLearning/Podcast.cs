@@ -12,12 +12,17 @@ namespace NativeLearning
         public String name { get; set; }
         public String url { get; set; }
 
+        public String feedUrl { get; set; };
 
 
-        public Podcast(string name, string url)
+
+        public Podcast(string name, string url, string feedUrl)
         {
             this.name = name;
             this.url = url;
+
+            this.feedUrl = feedUrl;
+
         }
 
         public String summary
@@ -44,8 +49,8 @@ namespace NativeLearning
         public PodcastViewModel()
         {
 
-            this.podcasts.Add(new Podcast("Darknet diaries", this.testUrl));
-            this.podcasts.Add(new Podcast("Political Gabfest", this.test2));
+            this.podcasts.Add(new Podcast("Darknet diaries", this.testUrl,""));
+            this.podcasts.Add(new Podcast("Political Gabfest", this.test2,""));
 
             
 
