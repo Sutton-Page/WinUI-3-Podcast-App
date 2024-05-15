@@ -70,9 +70,9 @@ namespace NativeLearning
         private  async Task pullFeed(String url)
         {
 
-            
 
-            String special = "{http://www.itunes.com/dtds/podcast-1.0.dtd}image";
+
+            XNamespace itunes = "http://www.itunes.com/dtds/podcast-1.0.dtd";
 
             XElement root = XElement.Load(url);
 
@@ -96,7 +96,7 @@ namespace NativeLearning
 
                                 url = (string)item.Element("enclosure").Attribute("url"),
 
-                                //episodeImageUrl = (String)item.Element(special).Attribute("href")
+                                episodeImageUrl = (String)item.Element(itunes + "image")?.Attribute("href")
 
 
 
@@ -112,7 +112,18 @@ namespace NativeLearning
                 {
 
                     String cleanedDescription = this.cleanUpDescription(item.Description, 45);
-                PodcastItem temp = new PodcastItem(item.Title, cleanedDescription, item.url, podcastData.url);//item.episodeImageUrl);
+
+                    String checkNull = item.episodeImageUrl;
+
+                    if(checkNull is null)
+                    {
+
+                    checkNull = podcastData.url;
+
+                    }
+
+
+                    PodcastItem temp = new PodcastItem(item.Title, cleanedDescription, item.url,checkNull);
 
                     podItems.Add(temp);
                 }
