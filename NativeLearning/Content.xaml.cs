@@ -14,6 +14,9 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using System.Text.RegularExpressions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,6 +31,8 @@ namespace NativeLearning
         Podcast podcastData;
 
         private ObservableCollection<PodcastItem> podItems;
+
+
         public Content()
         {
             this.InitializeComponent();
@@ -38,6 +43,8 @@ namespace NativeLearning
 
         }
 
+        
+
         //String lg = "Explore true stories of the dark side of the Internet with host Jack Rhysider \n as he takes you on a journey through the chilling world of hacking, \n data breaches, and cyber crime.";
 
 
@@ -47,7 +54,7 @@ namespace NativeLearning
             {
                 podcastData = e.Parameter as Podcast;
 
-                this.pullFeed(podcastData.feedUrl);
+                //this.pullFeed(podcastData.feedUrl);
             }
 
             
@@ -60,34 +67,89 @@ namespace NativeLearning
         }
 
 
-        private void pullFeed(String url)
+        private  async Task pullFeed(String url)
         {
+
+            
+
+            String special = "{http://www.itunes.com/dtds/podcast-1.0.dtd}image";
 
             XElement root = XElement.Load(url);
 
-            IEnumerable<String> titles = root.Descendants("item").Descendants("title").Select(x => x.Value);
+            var podDes = root.Element("channel").Element("description").Value;
 
-            IEnumerable<String> descriptions = root.Descendants("item").Descendants("description").Select(x => x.Value);
-
-            IEnumerable<String> urls = root.Descendants("item").Descendants("enclosure").Select(x => (string)x.Attribute("url"));
-
-            IEnumerable<String> podDesc = root.Descendants("channel").Descendants("description").Select(x => x.Value);
+            podDes = this.cleanUpDescription(podDes,70);
 
 
-            // setting header podcast description
-            desc.Text = podDesc.ElementAt(0);
+            
+
+             var items = from item in root.Descendants("item")
+
+                            select new
+                            {
 
 
-            for(int i = 0; i < titles.Count(); i++)
+
+
+                                Title = (string)item.Element("title"),
+                                Description = (string)item.Element("description"),
+
+                                url = (string)item.Element("enclosure").Attribute("url"),
+
+                                //episodeImageUrl = (String)item.Element(special).Attribute("href")
+
+
+
+
+                            };
+
+
+                // setting header podcast description
+                desc.Text = podDes;
+
+
+                foreach (var item in items)
+                {
+
+                    String cleanedDescription = this.cleanUpDescription(item.Description, 45);
+                PodcastItem temp = new PodcastItem(item.Title, cleanedDescription, item.url, podcastData.url);//item.episodeImageUrl);
+
+                    podItems.Add(temp);
+                }
+
+
+            
+
+
+            
+        }
+
+
+        public String cleanUpDescription(String description, int lineLength)
+        {
+            description = description.Replace("/n", "");
+
+            description=  Regex.Replace(description, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
+
+            if (description.Length > 200)
             {
 
-                String title = titles.ElementAt(i);
-                String desc = descriptions.ElementAt(i);
-                String audioUrl = urls.ElementAt(i);
+                description = description.Substring(0, 200);
+            }
 
-                PodcastItem temp = new PodcastItem(title,desc, audioUrl);
 
-                podItems.Add(temp);
+
+            return description;
+
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(podcastData is not null)
+            {
+
+                this.pullFeed(podcastData.feedUrl);
             }
         }
     }

@@ -14,12 +14,16 @@ namespace NativeLearning
 
         public String url { get; set; }
 
+        public String imageUrl { get; set; }
 
-        public PodcastItem(string title, string description, string url)
+
+        public PodcastItem(string title, string description, string url, String imageUrl)
         {
             this.title = title;
             this.description = description;
             this.url = url;
+            this.imageUrl = imageUrl;
+            
         }
 
 
