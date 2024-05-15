@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NativeLearning
 {
-    internal class PodcastItem
+    public class PodcastItem
     {
 
         public String title { get; set; }
@@ -15,7 +15,7 @@ namespace NativeLearning
         public String url { get; set; }
 
 
-        public PodcastItem(string title, string description, string url, )
+        public PodcastItem(string title, string description, string url)
         {
             this.title = title;
             this.description = description;
