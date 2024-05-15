@@ -78,7 +78,7 @@ namespace NativeLearning
 
             var podDes = root.Element("channel").Element("description").Value;
 
-            podDes = this.cleanUpDescription(podDes,70);
+            podDes = this.cleanUpDescription(podDes,40);
 
 
             
@@ -112,7 +112,7 @@ namespace NativeLearning
                 {
 
                     String cleanedDescription = this.cleanUpDescription(item.Description, 45);
-                     String cleanedTitle = this.cleanUpDescription(item.Title, 50);
+                     String cleanedTitle = this.cleanUpDescription(item.Title, 30);
 
                     String checkNull = item.episodeImageUrl;
 
