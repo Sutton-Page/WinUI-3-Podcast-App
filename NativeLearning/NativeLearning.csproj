@@ -10,6 +10,7 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Add.xaml" />
     <None Remove="Content.xaml" />
     <None Remove="Home.xaml" />
   </ItemGroup>
@@ -34,5 +35,11 @@
 
   <ItemGroup>
     <PropertyPageSchema Remove="Content.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Add.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
