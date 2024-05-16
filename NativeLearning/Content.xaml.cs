@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text.RegularExpressions;
 using Windows.Media.Core;
+using System.Runtime.CompilerServices;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,6 +36,8 @@ namespace NativeLearning
 
         private ObservableCollection<PodcastItem> podItems;
 
+        
+
 
         public Content()
         {
@@ -43,6 +46,8 @@ namespace NativeLearning
             podItems = new ObservableCollection<PodcastItem>();
 
             podView.SelectedIndex = 0;
+
+            
 
             
 
@@ -166,12 +171,14 @@ namespace NativeLearning
 
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if(podcastData is not null)
             {
 
-                this.pullFeed(podcastData.feedUrl);
+                await this.pullFeed(podcastData.feedUrl);
+
+               
             }
         }
 
