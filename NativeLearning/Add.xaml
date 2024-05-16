@@ -19,8 +19,8 @@
 
 
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="400" Header="Podcast Title" Margin="5" />
-                <Button VerticalAlignment="Bottom" FontSize="18" Margin="4">Search</Button>
+                <TextBox Width="400" Header="Podcast Title" Margin="5" x:Name="searchTerm"/>
+                <Button VerticalAlignment="Bottom" FontSize="18" Margin="4" Click="searchTerm">Search</Button>
             </StackPanel>
 
                 

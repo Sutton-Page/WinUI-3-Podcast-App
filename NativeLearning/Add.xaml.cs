@@ -23,6 +23,9 @@ namespace NativeLearning
     /// </summary>
     public sealed partial class Add : Page
     {
+        public static String podcastSearchUrl = "https://itunes.apple.com/search?term={0}&media=podcast&limit=5";
+
+
         public Add()
         {
             this.InitializeComponent();
@@ -35,6 +38,13 @@ namespace NativeLearning
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void searchTerm(object sender, RoutedEventArgs e)
+        {
+
+
 
         }
     }
