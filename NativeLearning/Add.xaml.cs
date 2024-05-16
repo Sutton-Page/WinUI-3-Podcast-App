@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,6 +38,14 @@ namespace NativeLearning
             searchResults = new ObservableCollection<PodResult>();
         }
 
+        private String wrapTitle(String title, int lineLength)
+        {
+
+            title = Regex.Replace(title, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
+
+            return title;
+        }
+
 
         public async Task pullData(string term)
         {
@@ -54,8 +63,8 @@ namespace NativeLearning
 
             foreach (var value in contentData.results)
             {
-
-                PodResult temp = new PodResult(value.collectionName, value.artworkUrl600, value.feedUrl);
+                String title = this.wrapTitle(value.collectionName,25);
+                PodResult temp = new PodResult(title, value.artworkUrl600, value.feedUrl);
 
                 searchResults.Add(temp);
             }
