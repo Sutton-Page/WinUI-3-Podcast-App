@@ -18,19 +18,40 @@
 
 
 
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="400" Header="Podcast Title" Margin="5" x:Name="searchTerm"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox Width="400" Header="Podcast Title" Margin="5" x:Name="input"/>
                 <Button VerticalAlignment="Bottom" FontSize="18" Margin="4" Click="searchTerm">Search</Button>
             </StackPanel>
 
                 
                 
-            <Button Click="goHome" HorizontalAlignment="Center" Margin="5" FontSize="20" > Go Home </Button>
+            <Button Click="goHome" HorizontalAlignment="Center" Margin="10" FontSize="20" > Go Home </Button>
 
-            
+            <GridView ItemsSource="{x:Bind searchResults}">
+
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="local:PodResult">
+
+                        <StackPanel Margin="5,10,5,10">
+                            <Image Source="{x:Bind imageUrl}" Width="200" Height="200"/>
+                            <TextBlock Text="{x:Bind name}"/>
+                            
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+
+
+            </GridView>
+
+
         </StackPanel>
 
-        
+
+       
+
+
+
+
 
     </Grid>
 </Page>

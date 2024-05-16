@@ -12,6 +12,10 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Text.Json;
+using System.Collections.ObjectModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,12 +27,40 @@ namespace NativeLearning
     /// </summary>
     public sealed partial class Add : Page
     {
-        public static String podcastSearchUrl = "https://itunes.apple.com/search?term={0}&media=podcast&limit=5";
+        private static string podcastSearchUrl = "https://itunes.apple.com/search?term={0}&media=podcast&limit=5";
 
-
+        private ObservableCollection<PodResult> searchResults;
         public Add()
         {
             this.InitializeComponent();
+
+            searchResults = new ObservableCollection<PodResult>();
+        }
+
+
+        public async Task pullData(string term)
+        {
+            
+            using HttpClient client = new HttpClient();
+
+            term = term.Replace(" ", "%20");
+
+            string item = string.Format(podcastSearchUrl, term);
+
+            string result = await client.GetStringAsync(item);
+
+            Searchobject? contentData = JsonSerializer.Deserialize<Searchobject>(result);
+
+
+            foreach (var value in contentData.results)
+            {
+
+                PodResult temp = new PodResult(value.collectionName, value.artworkUrl600, value.feedUrl);
+
+                searchResults.Add(temp);
+            }
+
+
         }
 
         private void goHome(object sender, RoutedEventArgs e)
@@ -36,14 +68,18 @@ namespace NativeLearning
             Frame.Navigate(typeof(Home));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+
+        private async void searchTerm(object sender, RoutedEventArgs e)
         {
 
-        }
+            searchResults.Clear();
 
-        private void searchTerm(object sender, RoutedEventArgs e)
-        {
 
+            string t = input.Text;
+             await pullData(t);
+
+            
 
 
         }
