@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,6 +32,11 @@ namespace NativeLearning
         private static string podcastSearchUrl = "https://itunes.apple.com/search?term={0}&media=podcast&limit=5";
 
         private ObservableCollection<PodResult> searchResults;
+
+        Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+        public ArrayList addItems = new ArrayList();
+
         public Add()
         {
             this.InitializeComponent();
@@ -78,6 +84,7 @@ namespace NativeLearning
         }
 
         
+        
 
         private async void searchTerm(object sender, RoutedEventArgs e)
         {
@@ -91,6 +98,19 @@ namespace NativeLearning
             
 
 
+        }
+
+        private void addPodcast(object sender, RoutedEventArgs e)
+        {
+            if(resultView.SelectedIndex == -1)
+            {
+                PodResult item = searchResults[resultView.SelectedIndex];
+
+                Podcast add = new Podcast(item.name, item.imageUrl, item.feedUrl);
+
+                addItems.Add(add);
+
+            }
         }
     }
 }

@@ -27,7 +27,7 @@
                 
             <Button Click="goHome" HorizontalAlignment="Center" Margin="10" FontSize="20" > Go Home </Button>
 
-            <GridView ItemsSource="{x:Bind searchResults}">
+            <GridView ItemsSource="{x:Bind searchResults}" x:Name="resultView">
 
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="local:PodResult">
@@ -35,7 +35,7 @@
                         <StackPanel Margin="5,10,5,10">
                             <Image Source="{x:Bind imageUrl}" Width="200" Height="200"/>
                             <TextBlock Text="{x:Bind name}"/>
-                            <Button>Add </Button>
+                            <Button Click="addPodcast">Add </Button>
                             
                         </StackPanel>
                     </DataTemplate>
