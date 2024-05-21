@@ -18,6 +18,8 @@ using System.Text.Json;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Collections;
+using Windows.Storage;
+using static System.Formats.Asn1.AsnWriter;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -80,6 +82,8 @@ namespace NativeLearning
 
         private void goHome(object sender, RoutedEventArgs e)
         {
+            this.writeToConfig();
+
             Frame.Navigate(typeof(Home));
         }
 
@@ -100,9 +104,67 @@ namespace NativeLearning
 
         }
 
+        public async void writeToConfig()
+        {
+
+            StorageFile st = await localFolder.GetFileAsync("config.json");
+
+            String data = await FileIO.ReadTextAsync(st);
+
+            CStorage store = new CStorage();
+
+
+            if (data != "")
+            {
+                CStorage? content = JsonSerializer.Deserialize<CStorage>(data);
+
+                for(int i = 0; i < content.podcasts.Length; i++)
+                {
+
+                    this.addItems.Add(content.podcasts[i]);
+                }
+
+                Podcast[] totalItems = new Podcast[this.addItems.Count];
+
+                for(int i = 0; i < totalItems.Length; i++)
+                {
+
+                    totalItems[i] = (Podcast) this.addItems[i];
+                }
+
+
+                store.podcasts = totalItems;
+
+                
+
+                
+            }
+            else
+            {
+
+                
+                Podcast[] temp = new Podcast[this.addItems.Count];
+
+                for(int i = 0; i <  this.addItems.Count; i++)
+                {
+                    temp[i] = (Podcast) this.addItems[i];
+                }
+
+                store.podcasts = temp;
+  
+
+            }
+
+            var handle = await st.OpenStreamForWriteAsync();
+
+            await JsonSerializer.SerializeAsync(handle, store);
+
+           
+        }
+
         private void addPodcast(object sender, RoutedEventArgs e)
         {
-            if(resultView.SelectedIndex == -1)
+            if(resultView.SelectedIndex != -1)
             {
                 PodResult item = searchResults[resultView.SelectedIndex];
 
