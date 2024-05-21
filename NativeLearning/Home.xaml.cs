@@ -13,6 +13,9 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Devices.Enumeration;
+using Windows.Storage;
+using Windows.Security.Cryptography.Certificates;
+using System.Text.Json;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,6 +29,10 @@ namespace NativeLearning
     {
 
         public PodcastViewModel ViewModel { get; set; }
+
+        Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+        public CStorage podStore;
 
         public Home()
         {
@@ -51,6 +58,21 @@ namespace NativeLearning
         private void toAdd(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Add));
+        }
+
+
+        private async void loadConfig()
+        {
+
+            StorageFile st = await localFolder.GetFileAsync("config.json");
+
+            String data =  await FileIO.ReadTextAsync(st);
+
+            CStorage? content = JsonSerializer.Deserialize<CStorage>(data);
+
+            this.podStore = content;
+            
+
         }
     }
 }
