@@ -37,8 +37,8 @@ namespace NativeLearning
         public Home()
         {
             this.InitializeComponent();
-            //this.ViewModel = new PodcastViewModel();
-            this.loadConfig();
+            this.ViewModel = new PodcastViewModel();
+            //this.loadConfig();
             
 
             
