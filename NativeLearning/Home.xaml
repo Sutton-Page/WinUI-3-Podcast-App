@@ -29,7 +29,7 @@
         </StackPanel>
 
 
-        <GridView  Grid.Row="1" ItemsSource="{x:Bind ViewModel.Podcasts}"
+        <GridView  Grid.Row="1" ItemsSource="{x:Bind podStore.podcasts}"
          HorizontalAlignment="Center" VerticalAlignment="Center"  SelectionMode="Single" IsItemClickEnabled="False"
                   SelectionChanged="GridView_SelectionChanged"  x:Name="podContent">
 

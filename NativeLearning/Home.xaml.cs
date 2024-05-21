@@ -37,7 +37,9 @@ namespace NativeLearning
         public Home()
         {
             this.InitializeComponent();
-            this.ViewModel = new PodcastViewModel();
+            //this.ViewModel = new PodcastViewModel();
+            this.loadConfig();
+            
 
             
         }
@@ -61,16 +63,21 @@ namespace NativeLearning
         }
 
 
-        private async void loadConfig()
+        public async void loadConfig()
         {
 
             StorageFile st = await localFolder.GetFileAsync("config.json");
 
             String data =  await FileIO.ReadTextAsync(st);
 
-            CStorage? content = JsonSerializer.Deserialize<CStorage>(data);
+            if(data != "")
+            {
+                CStorage? content = JsonSerializer.Deserialize<CStorage>(data);
 
-            this.podStore = content;
+                this.podStore = content;
+            }
+
+           
             
 
         }
