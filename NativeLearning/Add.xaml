@@ -35,6 +35,7 @@
                         <StackPanel Margin="5,10,5,10">
                             <Image Source="{x:Bind imageUrl}" Width="200" Height="200"/>
                             <TextBlock Text="{x:Bind name}"/>
+                            <Button>Add </Button>
                             
                         </StackPanel>
                     </DataTemplate>
