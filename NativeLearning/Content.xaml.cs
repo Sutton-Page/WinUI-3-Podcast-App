@@ -21,6 +21,7 @@ using Windows.Media.Core;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.UI.Dispatching;
+using Windows.Media.Playback;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -222,15 +223,32 @@ namespace NativeLearning
                 if (mediaPlayingIndex != podView.SelectedIndex)
                 {
 
-                    
-                    mediaPlayer.Source = null;
+                    MediaPlayer mp = mediaPlayer.MediaPlayer;
+                    IMediaPlaybackSource source = mediaPlayer.Source;
 
-                    
+                    if (mp.PlaybackSession.CanPause)
+                    {
+
+                        mp.Pause();
+                    }
+
+                    mediaPlayer.Source = null;
+                    mediaPlayer.SetMediaPlayer(null);
+
+                    if (source is MediaSource mediaSource)
+                    {
+                        mediaSource.Dispose();
+                    }
+
 
                     PodcastItem pod = podItems[podView.SelectedIndex];
                     mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(pod.url));
 
+
                     mediaPlayingIndex = podView.SelectedIndex;
+
+
+                   
 
                 }
 
