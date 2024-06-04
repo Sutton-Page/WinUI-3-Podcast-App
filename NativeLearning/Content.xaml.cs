@@ -19,6 +19,8 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Text.RegularExpressions;
 using Windows.Media.Core;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using Microsoft.UI.Dispatching;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,7 +38,9 @@ namespace NativeLearning
 
         private ObservableCollection<PodcastItem> podItems;
 
-        
+       private readonly DispatcherQueue _dispatcherQueue;
+
+       
 
 
         public Content()
@@ -47,9 +51,16 @@ namespace NativeLearning
 
             podView.SelectedIndex = 0;
 
-            
+            _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
             
+
+
+
+
+
+
+
 
         }
 
@@ -80,7 +91,7 @@ namespace NativeLearning
         }
 
 
-        private  async Task pullFeed(String url)
+        private async Task pullFeed(String url)
         {
 
 
@@ -91,62 +102,75 @@ namespace NativeLearning
 
             var podDes = root.Element("channel").Element("description").Value;
 
-            podDes = this.cleanUpDescription(podDes,40);
-
-
-            
-
-             var items = from item in root.Descendants("item")
-
-                            select new
-                            {
+            podDes = this.cleanUpDescription(podDes, 40);
 
 
 
 
-                                Title = (string)item.Element("title"),
-                                Description = (string)item.Element("description"),
+            var items = from item in root.Descendants("item")
 
-                                url = (string)item.Element("enclosure").Attribute("url"),
-
-                                episodeImageUrl = (String)item.Element(itunes + "image")?.Attribute("href")
+                        select new
+                        {
 
 
 
 
-                            };
+                            Title = (string)item.Element("title"),
+                            Description = (string)item.Element("description"),
+
+                            url = (string)item.Element("enclosure").Attribute("url"),
+
+                            episodeImageUrl = (String)item.Element(itunes + "image")?.Attribute("href")
 
 
-                // setting header podcast description
+
+
+                        };
+
+
+            // setting header podcast description
+            //desc.Text = podDes;
+
+            _dispatcherQueue.TryEnqueue(() =>
+            {
                 desc.Text = podDes;
 
+            });
 
-                foreach (var item in items)
+            foreach (var item in items)
+            {
+
+                String cleanedDescription = this.cleanUpDescription(item.Description, 45);
+                String cleanedTitle = this.cleanUpDescription(item.Title, 30);
+
+                String checkNull = item.episodeImageUrl;
+
+                if (checkNull is null)
                 {
-
-                    String cleanedDescription = this.cleanUpDescription(item.Description, 45);
-                     String cleanedTitle = this.cleanUpDescription(item.Title, 30);
-
-                    String checkNull = item.episodeImageUrl;
-
-                    if(checkNull is null)
-                    {
 
                     checkNull = podcastData.url;
 
-                    }
-
-
-                    PodcastItem temp = new PodcastItem(cleanedTitle, cleanedDescription, item.url,checkNull);
-
-                    podItems.Add(temp);
                 }
 
 
-            
+                PodcastItem temp = new PodcastItem(cleanedTitle, cleanedDescription, item.url, checkNull);
+
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+                    podItems.Add(temp);
+
+                });
+
+                
+            }
 
 
             
+
+
+
+
+
         }
 
 
@@ -171,14 +195,22 @@ namespace NativeLearning
 
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private  void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if(podcastData is not null)
             {
 
-                await this.pullFeed(podcastData.feedUrl);
 
-               
+                Task.Run(() => this.pullFeed(podcastData.feedUrl));
+                
+
+                //await this.pullFeed(podcastData.feedUrl);
+
+                // Thread test = new Thread(o => this.pullFeed(podcastData.feedUrl));
+
+                //test.Start();
+
+
             }
         }
 
