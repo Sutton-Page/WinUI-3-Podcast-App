@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using Windows.Storage;
 using static System.Formats.Asn1.AsnWriter;
+using Microsoft.UI.Dispatching;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,6 +38,8 @@ namespace NativeLearning
 
         Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
+        private readonly DispatcherQueue _dispatcherQueue;
+
         public ArrayList addItems = new ArrayList();
 
         public Add()
@@ -44,6 +47,8 @@ namespace NativeLearning
             this.InitializeComponent();
 
             searchResults = new ObservableCollection<PodResult>();
+
+            _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         }
 
         private String wrapTitle(String title, int lineLength)
@@ -74,7 +79,13 @@ namespace NativeLearning
                 String title = this.wrapTitle(value.collectionName,25);
                 PodResult temp = new PodResult(title, value.artworkUrl600, value.feedUrl);
 
-                searchResults.Add(temp);
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+                    searchResults.Add(temp);
+
+                });
+
+                //searchResults.Add(temp);
             }
 
 
@@ -90,14 +101,17 @@ namespace NativeLearning
         
         
 
-        private async void searchTerm(object sender, RoutedEventArgs e)
+        private void searchTerm(object sender, RoutedEventArgs e)
         {
 
             searchResults.Clear();
 
 
             string t = input.Text;
-             await pullData(t);
+
+            Task.Run(() => pullData(t));
+
+             //await pullData(t);
 
             
 
