@@ -28,7 +28,8 @@
             <Button Click="goHome" HorizontalAlignment="Center" Margin="10" FontSize="20" > Go Home </Button>
 
             <GridView ItemsSource="{x:Bind searchResults}" x:Name="resultView"
-                      SelectionMode="Single" IsItemClickEnabled="False" Height="500">
+                      SelectionMode="Single" IsItemClickEnabled="False" Height="500"
+                      SelectionChanged="resultView_SelectionChanged" >
 
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="local:PodResult">

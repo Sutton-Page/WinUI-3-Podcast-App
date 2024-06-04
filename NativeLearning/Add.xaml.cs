@@ -188,5 +188,22 @@ namespace NativeLearning
 
             }
         }
+
+        private void resultView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if(resultView.SelectedIndex != -1)
+            {
+
+                PodResult result = this.searchResults[resultView.SelectedIndex];
+
+                Podcast pod = new Podcast(result.name,result.imageUrl, result.feedUrl);
+
+                Frame.Navigate(typeof(Content), pod);
+
+
+            }
+
+        }
     }
 }
