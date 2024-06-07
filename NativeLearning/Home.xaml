@@ -30,8 +30,9 @@
 
 
         <GridView  Grid.Row="1" ItemsSource="{x:Bind ViewModel.Podcasts}"
-         HorizontalAlignment="Center" VerticalAlignment="Center"  SelectionMode="Single" IsItemClickEnabled="False"
-                  SelectionChanged="GridView_SelectionChanged"  x:Name="podContent">
+         HorizontalAlignment="Center" VerticalAlignment="Center"  SelectionMode="Single" IsItemClickEnabled="True"
+                  x:Name="podContent"
+                   ItemClick="podContent_ItemClick">
 
 
             <GridView.ItemTemplate>

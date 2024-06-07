@@ -46,17 +46,6 @@ namespace NativeLearning
 
         
 
-        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(podContent.SelectedIndex != -1)
-            {
-                Podcast pod = ViewModel.Podcasts[podContent.SelectedIndex];
-
-                String title = pod.name;
-                Frame.Navigate(typeof(Content),pod);
-            }
-        }
-
         private void toAdd(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Add));
@@ -80,6 +69,17 @@ namespace NativeLearning
            
             
 
+        }
+
+        private void podContent_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clicked = e.ClickedItem as Podcast;
+
+            if(clicked != null)
+            {
+                Frame.Navigate(typeof(Content), clicked);
+
+            }
         }
     }
 }
