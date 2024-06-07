@@ -189,21 +189,19 @@ namespace NativeLearning
             }
         }
 
-        private void resultView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+       
 
-            if(resultView.SelectedIndex != -1)
+        private void resultView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clicked = e.ClickedItem as PodResult;
+
+            if(clicked != null)
             {
 
-                PodResult result = this.searchResults[resultView.SelectedIndex];
-
-                Podcast pod = new Podcast(result.name,result.imageUrl, result.feedUrl);
+                Podcast pod = new Podcast(clicked.name, clicked.imageUrl, clicked.feedUrl);
 
                 Frame.Navigate(typeof(Content), pod);
-
-
             }
-
         }
     }
 }
