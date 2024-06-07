@@ -142,7 +142,18 @@ namespace NativeLearning
             {
 
                 String cleanedDescription = this.cleanUpDescription(item.Description, 45);
-                String cleanedTitle = this.cleanUpDescription(item.Title, 30);
+                //String cleanedTitle = this.cleanUpDescription(item.Title, 40);
+
+                String cleanedTitle = item.Title;
+
+                if(cleanedTitle.Length > 60)
+                {
+
+                    cleanedTitle = cleanedTitle.Substring(0,60);
+                }
+                
+
+                
 
                 String checkNull = item.episodeImageUrl;
 
@@ -173,6 +184,8 @@ namespace NativeLearning
 
 
         }
+
+        
 
 
         public String cleanUpDescription(String description, int lineLength)
