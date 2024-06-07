@@ -64,19 +64,21 @@
 
             <GridView Grid.Row="1" ItemsSource="{x:Bind podItems}"  
                   
-                      Height="480" Margin="10" x:Name="podView" SelectionMode="Single" IsItemClickEnabled="False"
-                      HorizontalAlignment="Center">
+                      Height="480" Margin="10" x:Name="podView" SelectionMode="Single" IsItemClickEnabled="True"
+                      HorizontalAlignment="Center"
+                      ItemClick="podView_ItemClick">
 
                 <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:PodcastItem">
 
 
                     <Grid Width="300" Margin="5">
-                       
+
+                        
                         <Image Source="{x:Bind imageUrl}" Stretch="UniformToFill" Width="300" Height="250"/>
-
-                        <Rectangle Fill="#80000000" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="100"/>
-
+                        <Rectangle Fill="#80000000" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="100"
+                                           />
+                 
 
                         <TextBlock Text="{x:Bind title}"
                             VerticalAlignment="Bottom"
@@ -86,9 +88,10 @@
                         FontWeight="Bold"
                                 TextWrapping="Wrap"
                            Margin="20"
-                   />
-                        
-                        
+                        />
+
+
+
                     </Grid>
 
 

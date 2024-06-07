@@ -233,44 +233,40 @@ namespace NativeLearning
             }
         }
 
-        private async void playAudio(object sender, RoutedEventArgs e)
+        
+
+        private void podView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (podView.SelectedIndex != -1)
+
+            var clicked = e.ClickedItem as PodcastItem;
+
+            if (clicked != null)
             {
 
-                if (mediaPlayingIndex != podView.SelectedIndex)
+                MediaPlayer mp = mediaPlayer.MediaPlayer;
+                IMediaPlaybackSource source = mediaPlayer.Source;
+
+                if (mp.PlaybackSession.CanPause)
                 {
 
-                    MediaPlayer mp = mediaPlayer.MediaPlayer;
-                    IMediaPlaybackSource source = mediaPlayer.Source;
-
-                    if (mp.PlaybackSession.CanPause)
-                    {
-
-                        mp.Pause();
-                    }
-
-                    mediaPlayer.Source = null;
-                    mediaPlayer.SetMediaPlayer(null);
-
-                    if (source is MediaSource mediaSource)
-                    {
-                        mediaSource.Dispose();
-                    }
-
-
-                    PodcastItem pod = podItems[podView.SelectedIndex];
-                    mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(pod.url));
-
-
-                    mediaPlayingIndex = podView.SelectedIndex;
-
-
-                   
-
+                    mp.Pause();
                 }
 
+                mediaPlayer.Source = null;
+                mediaPlayer.SetMediaPlayer(null);
+
+                if (source is MediaSource mediaSource)
+                {
+                    mediaSource.Dispose();
+                }
+
+                mediaPlayer.Source = MediaSource.CreateFromUri(new Uri(clicked.url));
+
+
+                mediaPlayingIndex = podView.SelectedIndex;
+
             }
+
         }
     }
 }
