@@ -105,7 +105,11 @@ namespace NativeLearning
 
             podDes = this.cleanUpDescription(podDes, 40);
 
+            if(podDes.Length > 100)
+            {
 
+                podDes = podDes.Substring(0, 100);
+            }
 
 
             var items = from item in root.Descendants("item")
@@ -131,6 +135,7 @@ namespace NativeLearning
 
             // setting header podcast description
             //desc.Text = podDes;
+
 
             _dispatcherQueue.TryEnqueue(() =>
             {
