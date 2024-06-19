@@ -25,9 +25,9 @@
                 <Button VerticalAlignment="Bottom" FontSize="18" Margin="4" Click="searchTerm">Search</Button>
             </StackPanel>
 
-                
-                
-   
+
+            <ProgressRing Width="100" Height="100" IsActive="False" x:Name="progress"/>
+
 
             <GridView ItemsSource="{x:Bind searchResults}" x:Name="resultView"
                       SelectionMode="Single" IsItemClickEnabled="True" Height="500"

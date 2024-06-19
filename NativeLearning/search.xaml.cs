@@ -111,6 +111,11 @@ namespace NativeLearning
 
                 _dispatcherQueue.TryEnqueue(() =>
                 {
+                    progress.IsActive = false;
+                    progress.Width = 0;
+                    progress.Height = 0;
+
+
                     searchResults.Add(temp);
 
                 });
@@ -136,6 +141,10 @@ namespace NativeLearning
 
             searchResults.Clear();
 
+            progress.IsActive = true;
+            progress.Width = 100;
+            progress.Height = 100;
+            
 
             string t = input.Text;
 
