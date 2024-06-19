@@ -174,6 +174,10 @@ namespace NativeLearning
 
                 _dispatcherQueue.TryEnqueue(() =>
                 {
+                    progress.IsActive = false;
+                    progress.Width = 0;
+                    progress.Height = 0;
+
                     podItems.Add(temp);
 
                 });

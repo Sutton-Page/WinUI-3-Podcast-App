@@ -54,15 +54,15 @@
             </StackPanel>
 
 
-
+           
 
 
         </Grid>
 
-       
 
+        <ProgressRing Width="100" Height="100" IsActive="True" x:Name="progress" Grid.Row="1"/>
 
-            <GridView Grid.Row="1" ItemsSource="{x:Bind podItems}"  
+        <GridView Grid.Row="1" ItemsSource="{x:Bind podItems}"  
                   
                       Height="480" Margin="10" x:Name="podView" SelectionMode="Single" IsItemClickEnabled="True"
                       HorizontalAlignment="Center"
@@ -74,7 +74,6 @@
 
                     <Grid Width="300" Margin="5">
 
-                        
                         <Image Source="{x:Bind imageUrl}" Stretch="UniformToFill" Width="300" Height="250"/>
                         <Rectangle Fill="#80000000" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="100"
                                            />
