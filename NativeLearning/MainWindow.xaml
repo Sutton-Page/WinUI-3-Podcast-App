@@ -23,7 +23,7 @@
                 <NavigationViewItemSeparator/>
                 
              
-                <NavigationViewItem Tag="NativeLearning.Add" Icon="Find" Content="Search"/>
+                <NavigationViewItem Tag="NativeLearning.Search" Icon="Find" Content="Search"/>
 
 
             </NavigationView.MenuItems>

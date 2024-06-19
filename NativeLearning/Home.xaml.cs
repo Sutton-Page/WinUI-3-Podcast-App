@@ -22,17 +22,14 @@ using System.Text.Json;
 
 namespace NativeLearning
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    
     public sealed partial class Home : Page
     {
 
         public PodcastViewModel ViewModel { get; set; }
 
-        Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-
-        public CStorage podStore;
+       
+        
 
         public Home()
         {
@@ -48,7 +45,7 @@ namespace NativeLearning
 
         private void toAdd(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Add));
+            Frame.Navigate(typeof(Search));
         }
 
 
