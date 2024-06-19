@@ -21,10 +21,7 @@
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,10">
             <TextBlock Margin="5" Text="Podcast App" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
 
-            <StackPanel Orientation="Horizontal">
-                <Button Margin="5" Click="toAdd">Add Podcast</Button>
-                <Button>Settings</Button>
-            </StackPanel>
+            
 
         </StackPanel>
 

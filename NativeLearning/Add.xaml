@@ -25,7 +25,7 @@
 
                 
                 
-            <Button Click="goHome" HorizontalAlignment="Center" Margin="10" FontSize="20" > Go Home </Button>
+   
 
             <GridView ItemsSource="{x:Bind searchResults}" x:Name="resultView"
                       SelectionMode="Single" IsItemClickEnabled="True" Height="500"
