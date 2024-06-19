@@ -32,7 +32,7 @@ namespace NativeLearning
     /// </summary>
     public sealed partial class Search : Page
     {
-        private static string podcastSearchUrl = "https://itunes.apple.com/search?term={0}&media=podcast&limit=5";
+        private static string podcastSearchUrl = "https://itunes.apple.com/search?term={0}&media=podcast";
 
         private ObservableCollection<PodResult> searchResults;
 
