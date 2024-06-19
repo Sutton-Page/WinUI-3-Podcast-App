@@ -42,7 +42,7 @@
 
                 <TextBlock Text="{x:Bind podcastData.name}" Margin="5" FontSize="35"/>
                 <TextBlock FontSize="20" x:Name="desc"/>
-                <Button Grid.Row="1" Click="Button_Click" Margin="10">Go Back</Button>
+                
 
                
 
