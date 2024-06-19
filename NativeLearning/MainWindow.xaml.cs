@@ -32,15 +32,26 @@ namespace NativeLearning
     {
 
 
+        private string searchCacheFile = "search.json";
+        private StateService stateService;
+
 
         public MainWindow()
         {
             this.InitializeComponent();
+            this.stateService = new StateService();
+
+            this.clearCache();
 
 
 
 
 
+        }
+
+        private  void clearCache()
+        {
+             this.stateService.deleteStore(searchCacheFile);
 
         }
 
