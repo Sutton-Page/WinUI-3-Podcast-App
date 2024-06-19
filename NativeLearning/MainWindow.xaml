@@ -22,8 +22,10 @@
                 <NavigationViewItem Tag="NativeLearning.Home" Icon="Home" Content="Home"/>
                 <NavigationViewItemSeparator/>
                 
-                
-                
+             
+                <NavigationViewItem Tag="NativeLearning.Add" Icon="Find" Content="Search"/>
+
+
             </NavigationView.MenuItems>
 
            
