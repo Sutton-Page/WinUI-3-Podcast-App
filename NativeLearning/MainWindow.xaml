@@ -13,10 +13,25 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Frame x:Name="nav" NavigationFailed="OnNavigationFailed">
+        <NavigationView x:Name="NavView"
+                     Loaded="NavView_Loaded"
+                     ItemInvoked="NavView_ItemInvoked"
+                     BackRequested="NavView_BackRequested"
+                        PaneDisplayMode="Top">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="NativeLearning.Home" Icon="Home" Content="Home"/>
+                <NavigationViewItemSeparator/>
+                
+                
+                
+            </NavigationView.MenuItems>
 
-        </Frame>
-        
+           
+                <Frame x:Name="ContentFrame" IsTabStop="True"
+                NavigationFailed="ContentFrame_NavigationFailed"/>
+            
+        </NavigationView>
+
     </Grid>
 
 
