@@ -40,7 +40,9 @@ namespace NativeLearning
 
         private readonly DispatcherQueue _dispatcherQueue;
 
-        public ArrayList addItems = new ArrayList();
+        private string searchStoreFile = "search.json";
+
+        private StateService stateService; 
 
         public Search()
         {
@@ -49,6 +51,8 @@ namespace NativeLearning
             searchResults = new ObservableCollection<PodResult>();
 
             _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+
+            this.stateService = new StateService();
         }
 
         private String wrapTitle(String title, int lineLength)
@@ -57,6 +61,32 @@ namespace NativeLearning
             title = Regex.Replace(title, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
 
             return title;
+        }
+
+
+        private async void saveState()
+        {
+
+            PodResult[] items = searchResults.ToArray();
+
+            await stateService.SaveStateAsync(searchStoreFile, items);
+
+
+        }
+
+        private async void RestoreData()
+        {
+
+            PodResult[] result = await stateService.LoadStateAsync<PodResult[]>(searchStoreFile);
+
+            if(result != null)
+            {
+
+                foreach (var item in result)
+                {
+                    searchResults.Add(item);
+                }
+            }
         }
 
 
@@ -93,7 +123,7 @@ namespace NativeLearning
 
         private void goHome(object sender, RoutedEventArgs e)
         {
-            this.writeToConfig();
+          
 
             Frame.Navigate(typeof(Home));
         }
@@ -111,86 +141,14 @@ namespace NativeLearning
 
             Task.Run(() => pullData(t));
 
-             //await pullData(t);
+             
 
             
 
 
         }
 
-        public async void writeToConfig()
-        {
-
-            StorageFile st = await localFolder.GetFileAsync("config.json");
-
-            String data = await FileIO.ReadTextAsync(st);
-
-            CStorage store = new CStorage();
-
-
-            if (data != "")
-            {
-                CStorage? content = JsonSerializer.Deserialize<CStorage>(data);
-
-                for(int i = 0; i < content.podcasts.Length; i++)
-                {
-
-                    this.addItems.Add(content.podcasts[i]);
-                }
-
-                Podcast[] totalItems = new Podcast[this.addItems.Count];
-
-                for(int i = 0; i < totalItems.Length; i++)
-                {
-
-                    totalItems[i] = (Podcast) this.addItems[i];
-                }
-
-
-                store.podcasts = totalItems;
-
-                
-
-                
-            }
-            else
-            {
-
-                
-                Podcast[] temp = new Podcast[this.addItems.Count];
-
-                for(int i = 0; i <  this.addItems.Count; i++)
-                {
-                    temp[i] = (Podcast) this.addItems[i];
-                }
-
-                store.podcasts = temp;
-  
-
-            }
-
-            var handle = await st.OpenStreamForWriteAsync();
-
-            await JsonSerializer.SerializeAsync(handle, store);
-
-           
-        }
-
-        private void addPodcast(object sender, RoutedEventArgs e)
-        {
-            if(resultView.SelectedIndex != -1)
-            {
-                PodResult item = searchResults[resultView.SelectedIndex];
-
-                Podcast add = new Podcast(item.name, item.imageUrl, item.feedUrl);
-
-                addItems.Add(add);
-
-            }
-        }
-
-       
-
+        
         private void resultView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var clicked = e.ClickedItem as PodResult;
@@ -202,6 +160,20 @@ namespace NativeLearning
 
                 Frame.Navigate(typeof(Content), pod);
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            this.RestoreData();
+
+
+
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.saveState();
         }
     }
 }
