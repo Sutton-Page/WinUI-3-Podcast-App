@@ -42,9 +42,10 @@
 
                 <TextBlock Text="{x:Bind podcastData.name}" Margin="5" FontSize="35"/>
                 <TextBlock FontSize="20" x:Name="desc"/>
-                
+                <Button Margin="10" Content="Save Podcast" FontSize="21" x:Name="saveButton" Click="saveButton_Click"/>
 
-               
+
+
 
             </StackPanel>
 

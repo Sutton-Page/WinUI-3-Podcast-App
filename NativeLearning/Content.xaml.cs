@@ -22,6 +22,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.UI.Dispatching;
 using Windows.Media.Playback;
+using System.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -41,7 +42,12 @@ namespace NativeLearning
 
        private readonly DispatcherQueue _dispatcherQueue;
 
-       
+        private string podStoreFile = "pod.json";
+
+        private StateService stateService;
+
+        private Podcast[] currentPodState;
+
 
 
         public Content()
@@ -54,13 +60,9 @@ namespace NativeLearning
 
             _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
+            this.stateService = new StateService();
+
             
-
-
-
-
-
-
 
 
         }
@@ -218,6 +220,83 @@ namespace NativeLearning
 
         }
 
+
+        private async void savePodcast()
+        {
+
+            if(currentPodState != null)
+            {
+
+                ArrayList holder = new ArrayList(currentPodState);
+
+                holder.Add(this.podcastData);
+
+                Podcast[] final = new Podcast[holder.Count];
+
+                holder.CopyTo(final, 0);
+
+
+                await stateService.SaveStateAsync<Podcast[]>(this.podStoreFile, final);
+
+
+
+
+            }
+            else
+            {
+
+                Podcast[] final = new Podcast[1];
+                final[0] = this.podcastData;
+
+                await stateService.SaveStateAsync<Podcast[]>(this.podStoreFile, final);
+            }
+
+
+            _dispatcherQueue.TryEnqueue(() =>
+            {
+
+                this.saveButton.IsEnabled = false;
+                this.saveButton.Content = "Podcast Saved";
+
+            });
+            
+        }
+
+        private async void loadContent()
+        {
+
+            currentPodState = await stateService.LoadStateAsync<Podcast[]>(this.podStoreFile);
+
+
+            if (currentPodState != null)
+            {
+
+
+                for (int i = 0; i < currentPodState.Length; i++)
+                {
+
+                    if(currentPodState[i].name == this.podcastData.name)
+                    {
+
+                        _dispatcherQueue.TryEnqueue(() =>
+                        {
+
+                            this.saveButton.Content = "Podcast saved";
+                            this.saveButton.IsEnabled = false;
+
+                        });
+
+                        break;
+
+                    }
+                }
+               
+                
+            }
+
+           
+        }
+
         private  void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if(podcastData is not null)
@@ -225,6 +304,9 @@ namespace NativeLearning
 
 
                 Task.Run(() => this.pullFeed(podcastData.feedUrl));
+
+                Task.Run(() => this.loadContent());
+                
                 
 
                 //await this.pullFeed(podcastData.feedUrl);
@@ -271,6 +353,16 @@ namespace NativeLearning
 
             }
 
+        }
+
+
+
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Task.Run(() => this.savePodcast());
+
+            
         }
     }
 }

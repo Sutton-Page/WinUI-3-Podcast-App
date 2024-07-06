@@ -17,6 +17,8 @@ using Windows.Storage;
 using Windows.Security.Cryptography.Certificates;
 using System.Text.Json;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Microsoft.UI.Dispatching;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -30,21 +32,24 @@ namespace NativeLearning
         private string podStoreFile = "pod.json";
 
         private StateService StateService;
-        public PodcastViewModel ViewModel { get; set; }
+        
 
         private ObservableCollection<Podcast> podcastItems;
-        
+
+        private readonly DispatcherQueue _dispatcherQueue;
+
 
         public Home()
         {
             this.InitializeComponent();
-            this.ViewModel = new PodcastViewModel();
+            
             this.StateService = new StateService();
             this.podcastItems = new ObservableCollection<Podcast>();
-           
-            
+            _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
-            
+
+
+
         }
 
         
@@ -53,11 +58,25 @@ namespace NativeLearning
 
             Podcast[] savedPodcast = await this.StateService.LoadStateAsync<Podcast[]>(podStoreFile);
 
-            foreach (var item in savedPodcast)
+
+            if(savedPodcast != null)
             {
-                
-                podcastItems.Add(item);
+
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+
+                    foreach (var item in savedPodcast)
+                    {
+
+                        podcastItems.Add(item);
+                    }
+
+                });
+
             }
+
+            
+            
 
 
         }
@@ -84,6 +103,7 @@ namespace NativeLearning
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 
+            Task.Run(() => this.loadPodcasts(this.podStoreFile));
         }
     }
 }
