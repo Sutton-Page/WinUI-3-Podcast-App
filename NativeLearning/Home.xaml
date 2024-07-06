@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
 
         </Grid.RowDefinitions>
 
@@ -26,14 +27,21 @@
 
         </StackPanel>
 
-        
+        <StackPanel  Grid.Row="1" x:Name="emptyUI" Visibility="Collapsed" HorizontalAlignment="Center"
+                     VerticalAlignment="Center">
+
+            <TextBlock Text="Click the search button below to search for and add podcasts" FontSize="24"
+                       HorizontalAlignment="Center" Margin="4"/>
+            <Button Content="Search" Click="directToSearch" FontSize="20" HorizontalAlignment="Center"/>
+
+        </StackPanel>
         
 
-        <GridView  Grid.Row="1" ItemsSource="{x:Bind podcastItems}"
+        <GridView  Grid.Row="2" ItemsSource="{x:Bind podcastItems}"
          HorizontalAlignment="Center" VerticalAlignment="Center"  SelectionMode="Single" IsItemClickEnabled="True"
                   x:Name="podContent"
                    ItemClick="podContent_ItemClick"
-                   >
+                   Height="600">
 
 
             <GridView.ItemTemplate>

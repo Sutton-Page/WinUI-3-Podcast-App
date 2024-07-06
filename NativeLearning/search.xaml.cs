@@ -115,6 +115,8 @@ namespace NativeLearning
                     progress.Width = 0;
                     progress.Height = 0;
 
+                    progress.Visibility = Visibility.Collapsed;
+
 
                     searchResults.Add(temp);
 
@@ -142,6 +144,7 @@ namespace NativeLearning
             searchResults.Clear();
 
             progress.IsActive = true;
+            progress.Visibility = Visibility.Visible;
             progress.Width = 100;
             progress.Height = 100;
             

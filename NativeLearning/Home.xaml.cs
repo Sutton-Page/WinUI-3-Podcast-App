@@ -62,17 +62,51 @@ namespace NativeLearning
             if(savedPodcast != null)
             {
 
+                if(savedPodcast.Length > 0)
+                {
+
+                    
+
+                    _dispatcherQueue.TryEnqueue(() =>
+                    {
+
+                        emptyUI.Visibility = Visibility.Collapsed;
+
+                        foreach (var item in savedPodcast)
+                        {
+
+                            podcastItems.Add(item);
+                        }
+
+                    });
+                }
+                else
+                {
+                    _dispatcherQueue.TryEnqueue(() =>
+                    {
+
+                        emptyUI.Visibility = Visibility.Visible;
+
+                    });
+                    
+                }
+                
+
+                
+
+                
+
+            }
+            else
+            {
+
                 _dispatcherQueue.TryEnqueue(() =>
                 {
 
-                    foreach (var item in savedPodcast)
-                    {
-
-                        podcastItems.Add(item);
-                    }
+                    emptyUI.Visibility = Visibility.Visible;
 
                 });
-
+               
             }
 
             
@@ -104,6 +138,11 @@ namespace NativeLearning
         {
 
             Task.Run(() => this.loadPodcasts(this.podStoreFile));
+        }
+
+        private void directToSearch(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Search));
         }
     }
 }
