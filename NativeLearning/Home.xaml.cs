@@ -144,5 +144,22 @@ namespace NativeLearning
         {
             Frame.Navigate(typeof(Search));
         }
+
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void podcast_right_click(object sender, RightTappedRoutedEventArgs e)
+        {
+            var senderElement = sender as FrameworkElement;
+            if (senderElement != null)
+            {
+
+                removeFly.ShowAt(senderElement, e.GetPosition(senderElement));
+
+                
+            }
+        }
     }
 }

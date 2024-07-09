@@ -10,6 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
 
+    
+
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 
@@ -19,6 +22,22 @@
             <RowDefinition Height="Auto"/>
 
         </Grid.RowDefinitions>
+
+
+        <Rectangle  Height="100" Width="100">
+            <Rectangle.ContextFlyout>
+                <MenuFlyout x:Name="removeFly">
+
+                    <MenuFlyoutItem Text="Go to podcast"
+                                    Icon="Microphone"/>
+                    <MenuFlyoutItem Text="Delete" Icon="Delete" />
+
+                </MenuFlyout>
+            </Rectangle.ContextFlyout>
+
+
+        </Rectangle>
+
 
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,10">
             <TextBlock Margin="5" Text="Saved Podcasts" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -43,14 +62,16 @@
                    ItemClick="podContent_ItemClick"
                    Height="600">
 
+            
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:Podcast">
 
+                    
                    
-                        <Grid Margin="4">
+                        <Grid Margin="4" RightTapped="podcast_right_click">
 
-
+                       
                         <Image Source="{x:Bind url}" Width="250" Height="250"/>
                                 
 
