@@ -148,10 +148,13 @@ namespace NativeLearning
             foreach (var item in items)
             {
 
-                String cleanedDescription = this.cleanUpDescription(item.Description, 45);
-                //String cleanedTitle = this.cleanUpDescription(item.Title, 40);
+                //String cleanedDescription = this.cleanUpDescriptionF(item.Description,32);
+                String cleanedDescription = this.cleanUpDescriptionFullLength(item.Description, 32);
+                //String cleanedTitle = this.cleanUpDescription(item.Title, 20);
 
                 String cleanedTitle = item.Title;
+
+                cleanedTitle = this.cleanUpDescriptionFullLength(cleanedTitle, 32);
 
                 if(cleanedTitle.Length > 60)
                 {
@@ -196,7 +199,17 @@ namespace NativeLearning
 
         }
 
-        
+        public String cleanUpDescriptionFullLength(String description, int lineLength)
+        {
+            description = description.Replace("/n", "");
+
+            description = Regex.Replace(description, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
+
+            
+            return description;
+
+
+        }
 
 
         public String cleanUpDescription(String description, int lineLength)

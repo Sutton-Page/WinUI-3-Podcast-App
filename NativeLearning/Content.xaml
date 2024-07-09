@@ -83,16 +83,19 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                     </Grid.RowDefinitions>
 
-                                    <StackPanel Grid.Row="0">
+                                    
 
-                                        <Image Source="{x:Bind imageUrl}" Height="150" HorizontalAlignment="Left"/>
-                                        <TextBlock Text="{x:Bind title}"  FontSize="28"/>
+                                   <Image Source="{x:Bind imageUrl}" Width="200" Height="200" 
+                                          Grid.Row="0" Margin="0,0,0,5"/>
+                                   <TextBlock Text="{x:Bind title}"  FontSize="28" Grid.Row="1"
+                                            FontWeight="Bold"  />
 
-                                    </StackPanel>
+                                   
 
-                                    <TextBlock  Grid.Row="1" FontSize="24" Text="{x:Bind description}"
+                                    <TextBlock  Grid.Row="2" FontSize="24" Text="{x:Bind description}"
                                                TextWrapping="WrapWholeWords"/>
 
 
