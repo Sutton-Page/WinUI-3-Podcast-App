@@ -161,5 +161,59 @@ namespace NativeLearning
                 
             }
         }
+
+
+
+        private void menuflyoutToPodcast(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuFlyoutItem;
+            if (menuItem != null)
+            {
+                var dataContext = menuItem.DataContext as Podcast;
+                if (dataContext != null)
+                {
+
+                    Frame.Navigate(typeof(Content), dataContext);
+
+                    //YourItemCollection.Remove(dataContext);
+                }
+            }
+        }
+
+
+        private async void updatePodcastState()
+        {
+
+            Podcast[] state = podcastItems.ToArray();
+
+            await StateService.SaveStateAsync<Podcast[]>(this.podStoreFile,state);
+
+        }
+
+        private void removePodcast(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuFlyoutItem;
+            if (menuItem != null)
+            {
+                var dataContext = menuItem.DataContext as Podcast;
+                if (dataContext != null)
+                {
+
+                    podcastItems.Remove(dataContext);
+
+                    if(podcastItems.Count == 0)
+                    {
+
+                        emptyUI.Visibility = Visibility.Visible;
+                    }
+
+
+                    Task.Run(() => this.updatePodcastState());
+
+
+                    
+                }
+            }
+        }
     }
 }
