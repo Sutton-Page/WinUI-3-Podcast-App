@@ -364,5 +364,13 @@ namespace NativeLearning
 
             
         }
+
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+
+           
+        }
     }
 }

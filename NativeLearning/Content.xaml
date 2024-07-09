@@ -73,9 +73,38 @@
                 <DataTemplate x:DataType="local:PodcastItem">
 
 
-                    <Grid Width="300" Margin="5">
+                    <Grid Width="300" Margin="5" RightTapped="Grid_RightTapped">
 
-                        <Image Source="{x:Bind imageUrl}" Stretch="UniformToFill" Width="300" Height="250"/>
+                        <FlyoutBase.AttachedFlyout>
+
+                            <Flyout Placement="Full" >
+                                <Grid>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0">
+
+                                        <Image Source="{x:Bind imageUrl}" Height="150" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="{x:Bind title}"  FontSize="28"/>
+
+                                    </StackPanel>
+
+                                    <TextBlock  Grid.Row="1" FontSize="24" Text="{x:Bind description}"
+                                               TextWrapping="WrapWholeWords"/>
+
+
+
+
+                                </Grid>
+                            </Flyout>
+                        </FlyoutBase.AttachedFlyout>
+
+
+                        <Image Source="{x:Bind imageUrl}" Stretch="UniformToFill" Width="300" Height="250"
+                               />
                         <Rectangle Fill="#80000000" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="100"
                                            />
                  
