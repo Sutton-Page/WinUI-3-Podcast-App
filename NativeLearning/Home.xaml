@@ -29,8 +29,8 @@
                 <MenuFlyout x:Name="removeFly">
 
                     <MenuFlyoutItem Text="Go to podcast"
-                                    Icon="Microphone"/>
-                    <MenuFlyoutItem Text="Delete" Icon="Delete" />
+                                    Icon="Microphone" Click="menuflyoutToPodcast"/>
+                    <MenuFlyoutItem Text="Delete" Icon="Delete" Click="removePodcast"/>
 
                 </MenuFlyout>
             </Rectangle.ContextFlyout>
@@ -39,8 +39,8 @@
         </Rectangle>
 
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,10">
-            <TextBlock Margin="5" Text="Saved Podcasts" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5">
+            <TextBlock Margin="5" Text="Saved Podcasts" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
 
             
 
