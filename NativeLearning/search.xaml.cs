@@ -332,6 +332,8 @@ namespace NativeLearning
             {
                 searchResults.Clear();
 
+                podcastSearchString = "";
+
             }
         }
 
