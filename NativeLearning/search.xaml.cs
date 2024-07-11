@@ -42,6 +42,8 @@ namespace NativeLearning
 
         private string searchStoreFile = "search.json";
 
+        private string podStoreFile = "pod.json";
+
         private StateService stateService; 
 
         public Search()
@@ -63,6 +65,28 @@ namespace NativeLearning
             return title;
         }
 
+        private async void addPodcast(Podcast pod)
+        {
+
+            Podcast [] currentPodState = await stateService.LoadStateAsync<Podcast[]>(this.podStoreFile);
+            
+            ArrayList temp = new ArrayList(currentPodState);
+
+            temp.Add(pod);
+
+            Podcast[] final = new Podcast[temp.Count];
+
+            temp.CopyTo(final, 0);
+
+            await stateService.SaveStateAsync<Podcast[]>(this.podStoreFile, final);
+
+
+
+
+
+
+
+        }
 
         private async void saveState()
         {
@@ -166,7 +190,39 @@ namespace NativeLearning
 
         }
 
-        
+
+        private void podcast_right_click(object sender, RightTappedRoutedEventArgs e)
+        {
+            var senderElement = sender as FrameworkElement;
+            if (senderElement != null)
+            {
+
+                removeFly.ShowAt(senderElement, e.GetPosition(senderElement));
+
+
+            }
+        }
+
+
+        private void menuflyoutToPodcast(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuFlyoutItem;
+            if (menuItem != null)
+            {
+                var dataContext = menuItem.DataContext as PodResult;
+                if (dataContext != null)
+                {
+
+                    Podcast pod = new Podcast(dataContext.name,dataContext.imageUrl,dataContext.feedUrl);
+
+                    Frame.Navigate(typeof(Content), pod);
+
+                    
+                }
+            }
+        }
+
+
         private void resultView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var clicked = e.ClickedItem as PodResult;
@@ -193,6 +249,25 @@ namespace NativeLearning
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             this.saveState();
+        }
+
+        private void podcastRightClickSave(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuFlyoutItem;
+            if (menuItem != null)
+            {
+                var dataContext = menuItem.DataContext as PodResult;
+                if (dataContext != null)
+                {
+
+                    Podcast pod = new Podcast(dataContext.name, dataContext.imageUrl, dataContext.feedUrl);
+
+                    Task.Run(() => this.addPodcast(pod));
+
+
+
+                }
+            }
         }
     }
 }
