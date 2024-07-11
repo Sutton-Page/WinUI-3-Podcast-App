@@ -82,10 +82,16 @@ namespace NativeLearning
             if(result != null)
             {
 
-                foreach (var item in result)
+                _dispatcherQueue.TryEnqueue(() =>
                 {
-                    searchResults.Add(item);
-                }
+
+                    foreach (var item in result)
+                    {
+                        searchResults.Add(item);
+                    }
+
+                });
+                
             }
         }
 
@@ -177,9 +183,10 @@ namespace NativeLearning
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 
-            this.RestoreData();
+            //this.RestoreData();
 
-
+            Task.Run(() => this.RestoreData());
+ 
 
         }
 
