@@ -23,6 +23,7 @@ using System.Threading;
 using Microsoft.UI.Dispatching;
 using Windows.Media.Playback;
 using System.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -43,6 +44,10 @@ namespace NativeLearning
        private readonly DispatcherQueue _dispatcherQueue;
 
         private string podStoreFile = "pod.json";
+
+        private string settingKey = "searchTerm";
+
+        private string podcastSearchString;
 
         private StateService stateService;
 
@@ -234,6 +239,9 @@ namespace NativeLearning
         }
 
 
+        
+
+
         private async void savePodcast()
         {
 
@@ -319,7 +327,8 @@ namespace NativeLearning
                 Task.Run(() => this.pullFeed(podcastData.feedUrl));
 
                 Task.Run(() => this.loadContent());
-                
+
+
                 
 
                 //await this.pullFeed(podcastData.feedUrl);

@@ -41,9 +41,13 @@ namespace NativeLearning
 
         private readonly DispatcherQueue _dispatcherQueue;
 
+        private string settingKey = "searchTerm";
+
         private string searchStoreFile = "search.json";
 
         private string podStoreFile = "pod.json";
+
+        private string podcastSearchString;
 
         private StateService stateService; 
 
@@ -72,6 +76,8 @@ namespace NativeLearning
             Podcast [] currentPodState = await stateService.LoadStateAsync<Podcast[]>(this.podStoreFile);
             
             ArrayList temp = new ArrayList(currentPodState);
+
+            
 
             temp.Add(pod);
 
@@ -106,6 +112,26 @@ namespace NativeLearning
 
 
 
+
+        }
+
+        public void SaveSearchTerm()
+        {
+
+            var localSettings = ApplicationData.Current.LocalSettings;
+            localSettings.Values[settingKey] = podcastSearchString;
+        }
+
+        public void LoadSearchTerm()
+        {
+
+            var localSettings = ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey(settingKey))
+            {
+                this.podcastSearchString = (string)localSettings.Values[settingKey];
+
+                input.Text = this.podcastSearchString;
+            }
 
         }
 
@@ -202,6 +228,8 @@ namespace NativeLearning
 
             string t = input.Text;
 
+            this.podcastSearchString = t;
+
             Task.Run(() => pullData(t));
 
              
@@ -263,6 +291,9 @@ namespace NativeLearning
             //this.RestoreData();
 
             Task.Run(() => this.RestoreData());
+
+
+            this.LoadSearchTerm();
  
 
         }
@@ -270,6 +301,7 @@ namespace NativeLearning
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             this.saveState();
+            this.SaveSearchTerm();
         }
 
         private void podcastRightClickSave(object sender, RoutedEventArgs e)
