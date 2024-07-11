@@ -290,5 +290,31 @@ namespace NativeLearning
                 }
             }
         }
+
+        private void input_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            TextBox textBox = sender as TextBox;
+
+            if(textBox.Text.Length == 0)
+            {
+                searchResults.Clear();
+
+            }
+        }
+
+        private void searchBoxKeyPressed(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+
+                searchTerm(searchButton, new RoutedEventArgs());
+
+                
+
+
+            }
+        }
+
     }
 }

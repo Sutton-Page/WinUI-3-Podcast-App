@@ -41,8 +41,9 @@
 
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBox Width="400" Header="Podcast Title" Margin="5" x:Name="input"/>
-                <Button VerticalAlignment="Bottom" FontSize="18" Margin="4" Click="searchTerm">Search</Button>
+                <TextBox Width="400" Header="Podcast Title" Margin="5" x:Name="input"
+                         TextChanged="input_TextChanged" KeyDown="searchBoxKeyPressed"/>
+                <Button VerticalAlignment="Bottom" FontSize="18" Margin="4" Click="searchTerm" x:Name="searchButton">Search</Button>
             </StackPanel>
 
 
