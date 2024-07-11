@@ -74,38 +74,83 @@ namespace NativeLearning
         {
 
             Podcast [] currentPodState = await stateService.LoadStateAsync<Podcast[]>(this.podStoreFile);
-            
-            ArrayList temp = new ArrayList(currentPodState);
-
-            
-
-            temp.Add(pod);
-
-            Podcast[] final = new Podcast[temp.Count];
-
-            temp.CopyTo(final, 0);
-
-            await stateService.SaveStateAsync<Podcast[]>(this.podStoreFile, final);
 
 
-            string message =  pod.name + ": was added to your saved podcasts!";
+            bool isNew = true;
 
-            _dispatcherQueue.TryEnqueue(() =>
+            foreach (var item in currentPodState)
             {
 
-                podcastSavedNotification.Message = message;
-                podcastSavedNotification.IsOpen = true;
+                if(item.name == pod.name)
+                {
 
-            });
+                    isNew = false;
+                    break;
+                }
+                
+            }
 
-            Thread.Sleep(3000);
-
-            _dispatcherQueue.TryEnqueue(() =>
+            if (isNew)
             {
 
-                podcastSavedNotification.IsOpen = false;
+                ArrayList temp = new ArrayList(currentPodState);
 
-            });
+                temp.Add(pod);
+
+                Podcast[] final = new Podcast[temp.Count];
+
+                temp.CopyTo(final, 0);
+
+                await stateService.SaveStateAsync<Podcast[]>(this.podStoreFile, final);
+
+
+                string message = pod.name + ": was added to your saved podcasts!";
+
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+
+                    podcastSavedNotification.Message = message;
+                    podcastSavedNotification.IsOpen = true;
+
+                });
+
+                Thread.Sleep(3000);
+
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+
+                    podcastSavedNotification.IsOpen = false;
+
+                });
+            }
+
+            else
+            {
+
+                string message = pod.name + ": already saved!";
+
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+
+                    podcastNotSavedNotification.Message = message;
+                    podcastNotSavedNotification.IsOpen= true;
+
+                });
+
+                Thread.Sleep(3000);
+
+                _dispatcherQueue.TryEnqueue(() =>
+                {
+
+                    podcastNotSavedNotification.IsOpen = false;
+
+                });
+
+
+
+
+
+            }
 
 
 

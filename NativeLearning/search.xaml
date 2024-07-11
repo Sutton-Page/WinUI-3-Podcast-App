@@ -16,7 +16,8 @@
 
     <Grid>
 
-        <InfoBar x:Name="podcastSavedNotification" Title="Podcast Added!" Severity="Success"/>
+        <InfoBar x:Name="podcastSavedNotification" Title="Podcast Saved!" Severity="Success"/>
+        <InfoBar x:Name="podcastNotSavedNotification" Title="Podcast not Saved" Severity="Error"/>
 
         <Rectangle  Height="100" Width="100">
 
