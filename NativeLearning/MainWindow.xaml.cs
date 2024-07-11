@@ -33,7 +33,10 @@ namespace NativeLearning
 
 
         private string searchCacheFile = "search.json";
+        private string settingKey = "searchTerm";
         private StateService stateService;
+
+        private ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
 
         public MainWindow()
@@ -51,7 +54,9 @@ namespace NativeLearning
 
         private  void clearCache()
         {
-             this.stateService.deleteStore(searchCacheFile);
+            localSettings.Values[settingKey] = "";
+            this.stateService.deleteStore(searchCacheFile);
+            
 
         }
 
