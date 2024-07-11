@@ -28,7 +28,7 @@
             <Rectangle.ContextFlyout>
                 <MenuFlyout x:Name="removeFly">
 
-                    <MenuFlyoutItem Text="Go to podcast"
+                    <MenuFlyoutItem Text="Open"
                                     Icon="Microphone" Click="menuflyoutToPodcast"/>
                     <MenuFlyoutItem Text="Delete" Icon="Delete" Click="removePodcast"/>
 

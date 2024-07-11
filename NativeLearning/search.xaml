@@ -22,9 +22,9 @@
 
                 <MenuFlyout x:Name="removeFly">
 
-                    <MenuFlyoutItem Text="Go to podcast"
+                    <MenuFlyoutItem Text="Open"
                     Icon="Microphone" Click="menuflyoutToPodcast"/>
-                    <MenuFlyoutItem Text="Save Podcast" Icon="Save" Click="podcastRightClickSave"/>
+                    <MenuFlyoutItem Text="Save" Icon="Save" Click="podcastRightClickSave"/>
 
                 </MenuFlyout>
 
