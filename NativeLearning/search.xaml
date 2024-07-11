@@ -48,7 +48,7 @@
 
 
             <ProgressRing Width="100" Height="100" IsActive="False" x:Name="progress"
-                          />
+                          Visibility="Collapsed"/>
 
 
             <GridView ItemsSource="{x:Bind searchResults}" x:Name="resultView"

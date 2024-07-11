@@ -54,8 +54,8 @@ namespace NativeLearning
 
         private  void clearCache()
         {
-            localSettings.Values[settingKey] = "";
-            this.stateService.deleteStore(searchCacheFile);
+            //localSettings.Values[settingKey] = "";
+           // this.stateService.deleteStore(searchCacheFile);
             
 
         }
