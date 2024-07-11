@@ -96,7 +96,7 @@
                                    
 
                                     <TextBlock  Grid.Row="2" FontSize="24" Text="{x:Bind description}"
-                                               TextWrapping="WrapWholeWords"/>
+                                               TextWrapping="WrapWholeWords" HorizontalAlignment="Center"/>
 
 
 
