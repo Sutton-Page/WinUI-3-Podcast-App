@@ -21,6 +21,7 @@ using System.Collections;
 using Windows.Storage;
 using static System.Formats.Asn1.AsnWriter;
 using Microsoft.UI.Dispatching;
+using System.Threading;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -79,6 +80,26 @@ namespace NativeLearning
             temp.CopyTo(final, 0);
 
             await stateService.SaveStateAsync<Podcast[]>(this.podStoreFile, final);
+
+
+            string message =  pod.name + ": was added to your saved podcasts!";
+
+            _dispatcherQueue.TryEnqueue(() =>
+            {
+
+                podcastSavedNotification.Message = message;
+                podcastSavedNotification.IsOpen = true;
+
+            });
+
+            Thread.Sleep(3000);
+
+            _dispatcherQueue.TryEnqueue(() =>
+            {
+
+                podcastSavedNotification.IsOpen = false;
+
+            });
 
 
 

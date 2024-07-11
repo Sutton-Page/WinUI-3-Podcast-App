@@ -46,6 +46,10 @@
 
         </StackPanel>
 
+        
+
+
+
         <StackPanel  Grid.Row="1" x:Name="emptyUI" Visibility="Collapsed" HorizontalAlignment="Center"
                      VerticalAlignment="Center">
 
@@ -83,6 +87,8 @@
 
 
         </GridView>
+
+        
 
     </Grid>
 </Page>

@@ -19,6 +19,7 @@ using System.Text.Json;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.UI.Dispatching;
+using System.Threading;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -187,6 +188,8 @@ namespace NativeLearning
             Podcast[] state = podcastItems.ToArray();
 
             await StateService.SaveStateAsync<Podcast[]>(this.podStoreFile,state);
+
+            
 
         }
 

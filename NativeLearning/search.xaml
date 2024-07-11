@@ -16,6 +16,8 @@
 
     <Grid>
 
+        <InfoBar x:Name="podcastSavedNotification" Title="Podcast Added!" Severity="Success"/>
+
         <Rectangle  Height="100" Width="100">
 
             <Rectangle.ContextFlyout>
