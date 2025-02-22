@@ -7,7 +7,7 @@ Unfortunately it is impossible to install this project without opening it and ru
 ## Project Screenshots
 
 ### Home Page
-![](./C# podcast-app/home.PNG)
+![](./screenshots/home.PNG)
 
 
 
