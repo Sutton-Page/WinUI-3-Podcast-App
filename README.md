@@ -9,5 +9,11 @@ Unfortunately it is impossible to install this project without opening it and ru
 ### Home Page
 ![](./screenshots/home.PNG)
 
+### Search Page
+![](./screenshots/search.PNG)
+
+### Podcast Page
+![](./screenshots/podcast.PNG)
+
 
 
